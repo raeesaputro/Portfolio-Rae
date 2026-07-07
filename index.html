@@ -1282,19 +1282,11 @@
                         <a href="#" class="btn-primary">⬇ Download CV</a>
                         <a href="#projects" class="btn-outline">Explore Projects →</a>
                     </div>
-                    <div class="hero-stats fade-up fade-up-3">
-                        <div>
-                            <div class="hero-stat-value gradient-text" id="stat-projects">0+</div>
-                            <div class="hero-stat-label">Projects Done</div>
-                        </div>
-                        <div>
-                            <div class="hero-stat-value gradient-text" id="stat-years">0+</div>
-                            <div class="hero-stat-label">Years Exp.</div>
-                        </div>
-                        <div>
-                            <div class="hero-stat-value gradient-text">19+</div>
-                            <div class="hero-stat-label">Technologies</div>
-                        </div>
+                    <div class="hero-stats fade-up fade-up-3" style="gap: 10px; align-items: center;">
+                        <span style="font-size: 13px; color: var(--text-muted); font-family: var(--font-mono);">Specialized in:</span>
+                        <span class="chip">Graphic Design</span>
+                        <span class="chip">Video Editing</span>
+                        <span class="chip">Trend Research</span>
                     </div>
                 </div>
 
@@ -1303,10 +1295,6 @@
                     <div class="profile-status"><span></span>Available for hire</div>
                     <div class="profile-img-box">profile photo</div>
                     <div class="profile-namme">Multimedia Specialist</div>
-                    <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-                        <span class="chip">Graphic Design</span><span class="chip">Video Editing</span>
-                        <span class="chip">Trend Research</span>
-                    </div>
                     <a href="#contact" class="profile-cta">Contact Me</a>
                 </div>
             </div>
@@ -1327,26 +1315,25 @@
                         <div class="highlight-card">Strategic Graphic Design</div>
                         <div class="highlight-card">Video Production & Editing</div>
                         <div class="highlight-card">Data-Driven Trend Research</div>
-                        <div class="highlight-card">3D Asset Development</div>
                     </div>
                 </div>
                 <div class="stat-cards">
                     <div class="stat-card glass">
-                        <div class="stat-icon style="color: #ffffff;">15+</div>
+                        <div class="stat-icon" style="color: #ffffff;" id="about-projects">0+</div>
                         <div>
                             <div class="stat-label">Projects Completed</div>
                             <div class="stat-sub">Academic & Commercial</div>
                         </div>
                     </div>
                     <div class="stat-card glass">
-                        <div class="stat-icon style="color: #ffffff;">4.7M</div>
+                        <div class="stat-icon" style="color: #ffffff;" id="about-views">0M</div>
                         <div>
                             <div class="stat-label">Content Views</div>
                             <div class="stat-sub">Proven digital engagement</div>
                         </div>
                     </div>
                     <div class="stat-card glass">
-                        <div class="stat-icon style="color: #ffffff;">8+</div>
+                        <div class="stat-icon" style="color: #ffffff;" id="about-tools">0+</div>
                         <div>
                             <div class="stat-label">Creative Tools</div>
                             <div class="stat-sub">Continuously mastering</div>
@@ -1604,25 +1591,36 @@
         function closeMobile() { menuOpen = false; document.getElementById('mobileMenu').classList.remove('open') }
 
         // ── COUNT-UP ──
-        function countUp(el, target, duration) {
-            const start = performance.now()
-            const update = (now) => {
-                const t = Math.min((now - start) / duration, 1)
-                const ease = 1 - Math.pow(1 - t, 3)
-                el.textContent = Math.round(ease * target) + '+'
-                if (t < 1) requestAnimationFrame(update)
+        function countUp(el, target, duration, suffix = '+', isFloat = false)
+        {
+            if (!el) return;
+            const start = performance.now();
+            const update = (now) =>
+            {
+                const t = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - t, 3);
+                const val = ease * target;
+                // Jika isFloat true, gunakan 1 angka di belakang koma (misal: 4.7)
+                el.textContent = (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
+                if (t < 1) requestAnimationFrame(update);
             }
-            requestAnimationFrame(update)
+            requestAnimationFrame(update);
         }
-        const statsObs = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                countUp(document.getElementById('stat-projects'), 20, 1400)
-                countUp(document.getElementById('stat-years'), 3, 1000)
-                statsObs.disconnect()
+
+        const aboutObs = new IntersectionObserver((entries) =>
+        {
+            if (entries[0].isIntersecting)
+            {
+                // Jalankan animasi saat bagian About terlihat di layar
+                countUp(document.getElementById('about-projects'), 15, 1400, '+');
+                countUp(document.getElementById('about-views'), 4.7, 2000, 'M', true);
+                countUp(document.getElementById('about-tools'), 8, 1000, '+');
+                aboutObs.disconnect(); // Hentikan observasi agar tidak berulang
             }
-        }, { threshold: 0.5 })
-        const heroEl = document.getElementById('hero')
-        if (heroEl) statsObs.observe(heroEl)
+        }, { threshold: 0.5 });
+
+        const aboutEl = document.getElementById('about');
+        if (aboutEl) aboutObs.observe(aboutEl);
 
         // ── PROJECT FILTER ──
         document.querySelectorAll('.filter-btn').forEach(btn => {
