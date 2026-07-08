@@ -714,59 +714,132 @@
         .gallery-container {
             position: relative;
             width: 100%;
-            height: 520px; /* Sesuaikan tinggi agar pas */
+            height: 550px; /* Tinggi dibesarkan agar cinematic */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            margin-top: 20px;
+            margin-top: 40px;
         }
 
         .gallery-item {
             position: absolute;
             width: 85vw;
-            max-width: 400px; /* Ukuran card di tengah */
-            border-radius: 16px;
+            max-width: 650px; /* Lebar diperbesar */
+            height: 100%;
+            border-radius: 32px; /* Lebih membulat (2rem) */
             overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            /* Ini transisi rahasianya: Smooth ngegeser, nge-fade, & nge-zoom! */
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
         }
 
-            /* Status Posisi (Diatur otomatis oleh JavaScript) */
-            .gallery-item.center {
-                transform: translateX(0) scale(1);
-                z-index: 10;
-                opacity: 1;
-                filter: brightness(100%);
+        /* Gambar Full Cover */
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%); /* Hapus baris ini jika ingin gambarnya berwarna */
+        }
+
+        /* Efek Gradien Gelap di bawah gambar agar teks terbaca */
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Posisi Transisi Card */
+        .gallery-item.center {
+            transform: translateX(0) scale(1);
+            z-index: 10;
+            opacity: 1;
+            filter: brightness(100%);
+        }
+
+        .gallery-item.left {
+            transform: translateX(-65%) scale(0.8);
+            z-index: 5;
+            opacity: 0.45;
+            filter: brightness(50%);
+        }
+
+        .gallery-item.right {
+            transform: translateX(65%) scale(0.8);
+            z-index: 5;
+            opacity: 0.45;
+            filter: brightness(50%);
+        }
+
+        .gallery-item.hidden {
+            transform: translateX(0) scale(0.5);
+            z-index: 0;
+            opacity: 0;
+            filter: brightness(30%);
+            pointer-events: none;
+        }
+
+        /* Konten Teks melayang di bawah */
+        .gallery-content {
+            position: absolute;
+            bottom: 40px; /* Jarak dari bawah */
+            left: 32px;
+            right: 32px;
+            z-index: 10;
+            color: #ffffff;
+            /* Animasi Teks: Hanya muncul kalau card ada di tengah */
+            transform: translateY(16px);
+            opacity: 0;
+            transition: all 0.45s ease-out;
+        }
+
+        .gallery-item.center .gallery-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+        }
+
+        .gallery-title {
+            font-family: var(--font-head);
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .gallery-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            max-width: 90%;
+        }
+
+        .gallery-stack {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+            .gallery-stack .chip {
+                background: rgba(255,255,255,0.1);
+                border-color: rgba(255,255,255,0.2);
+                color: #fff;
+                backdrop-filter: blur(4px);
             }
 
-            .gallery-item.left {
-                /* Menggeser ke kiri (-70%), mengecil, meredup */
-                transform: translateX(-70%) scale(0.85);
-                z-index: 5;
-                opacity: 0.45;
-                filter: brightness(50%);
-            }
-
-            .gallery-item.right {
-                /* Menggeser ke kanan (70%), mengecil, meredup */
-                transform: translateX(70%) scale(0.85);
-                z-index: 5;
-                opacity: 0.45;
-                filter: brightness(50%);
-            }
-
-            .gallery-item.hidden {
-                transform: translateX(0) scale(0.5);
-                z-index: 0;
-                opacity: 0;
-                filter: brightness(30%);
-                pointer-events: none;
-            }
-
+        /* Tombol Prev/Next di bawah Carousel */
         .gallery-controls {
             position: absolute;
             bottom: 0;
@@ -776,23 +849,22 @@
         }
 
         .gallery-btn {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.85);
+            color: #000;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
             cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
             .gallery-btn:hover {
                 background: #fff;
-                color: #000;
                 transform: scale(1.05);
             }
 
@@ -1535,44 +1607,51 @@
             <div class="gallery-container">
                 <!-- Card 1 -->
                 <div class="gallery-item" data-cat="web">
-                    <div class="project-thumb">
-                        <img src="Graphic-Design/Post/PKL/gambar1.webp" alt="Project 1" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                        <div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">Website Sekolah</div>
-                        <div class="project-desc">Website profil dan informasi sekolah dengan sistem manajemen konten.</div>
-                        <div class="project-stack"><span class="chip">React</span><span class="chip">Tailwind</span></div>
+                    <!-- Gambar Cover -->
+                    <img src="Graphic-Design/Post/PKL/gambar1.webp" alt="Website Sekolah" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay"></div>
+
+                    <!-- Teks yang muncul saat di tengah -->
+                    <div class="gallery-content">
+                        <div class="gallery-label">Web Development</div>
+                        <h3 class="gallery-title">Website Sekolah</h3>
+                        <p class="gallery-desc">Website profil dan informasi sekolah dengan sistem manajemen konten.</p>
+                        <div class="gallery-stack">
+                            <span class="chip">React</span><span class="chip">Tailwind</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="gallery-item" data-cat="web">
-                    <div class="project-thumb">
-                        <img src="Graphic-Design/Post/PKL/gambar2.webp" alt="Project 2" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                        <div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">Company Profile</div>
-                        <div class="project-desc">Website responsif dengan animasi scroll dan halaman layanan.</div>
-                        <div class="project-stack"><span class="chip">Next.js</span><span class="chip">CSS</span></div>
+                    <img src="Graphic-Design/Post/PKL/gambar2.webp" alt="Company Profile" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay"></div>
+
+                    <div class="gallery-content">
+                        <div class="gallery-label">Corporate</div>
+                        <h3 class="gallery-title">Company Profile</h3>
+                        <p class="gallery-desc">Website responsif dengan animasi scroll dan halaman layanan terintegrasi.</p>
+                        <div class="gallery-stack">
+                            <span class="chip">Next.js</span><span class="chip">CSS</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="gallery-item" data-cat="fullstack">
-                    <div class="project-thumb">
-                        <img src="Graphic-Design/Post/PKL/gambar3.webp" alt="Project 3" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                        <div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">E-Learning Platform</div>
-                        <div class="project-desc">Platform belajar interaktif dengan sistem video progress tracking.</div>
-                        <div class="project-stack"><span class="chip">Next.js</span><span class="chip">Node.js</span></div>
+                    <img src="Graphic-Design/Post/PKL/gambar3.webp" alt="E-Learning Platform" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay"></div>
+
+                    <div class="gallery-content">
+                        <div class="gallery-label">Full Stack</div>
+                        <h3 class="gallery-title">E-Learning Platform</h3>
+                        <p class="gallery-desc">Platform belajar interaktif dengan sistem video progress tracking.</p>
+                        <div class="gallery-stack">
+                            <span class="chip">Next.js</span><span class="chip">Node.js</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 4 (Bisa tambah lagi sebanyak-banyaknya di bawah sini) -->
                 <!-- Tombol Kiri Kanan -->
                 <div class="gallery-controls">
                     <button class="gallery-btn" id="btn-prev" aria-label="Previous">
