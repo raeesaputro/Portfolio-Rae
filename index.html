@@ -269,17 +269,18 @@
             font-weight: 600;
             padding: 7px 18px;
             border-radius: 8px;
-            border: 1px solid #333333;
-            background-image: linear-gradient(110deg, #666666 35%, #ffffff 50%, #666666 75%, #666666);
+            color: #000000; /* Teks warna hitam */
+            border: 1px solid #ffffff;
+            /* Efek Kotak Bersinar (Putih dengan sapuan Perak) */
+            background-image: linear-gradient(110deg, #ffffff 35%, #cccccc 50%, #ffffff 75%, #ffffff);
             background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* ATUR KECEPATAN DI SINI (Ubah 2s sesuai selera) */
             animation: shine 2s linear infinite;
-            transition: border-color .2s;
+            transition: transform .2s, border-color .2s;
         }
 
             .nav-cta:hover {
-                border-color: #ffffff;
+                transform: scale(1.05);
             }
 
         .nav-burger {
@@ -515,17 +516,18 @@
             font-weight: 600;
             font-size: 14px;
             text-align: center;
-            border: 1px solid #333333;
-            background-image: linear-gradient(110deg, #666666 35%, #ffffff 50%, #666666 75%, #666666);
+            color: #000000; /* Teks warna hitam */
+            border: 1px solid #ffffff;
+            /* Efek Kotak Bersinar (Putih dengan sapuan Perak) */
+            background-image: linear-gradient(110deg, #ffffff 35%, #cccccc 50%, #ffffff 75%, #ffffff);
             background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            /* ATUR KECEPATAN DI SINI (Ubah 2s sesuai selera) */
             animation: shine 2s linear infinite;
-            transition: border-color .2s;
+            transition: transform .2s, border-color .2s;
         }
 
             .profile-cta:hover {
-                border-color: #ffffff;
+                transform: translateY(-3px);
             }
 
         /* ── ABOUT ── */
