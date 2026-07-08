@@ -1566,7 +1566,7 @@
             <h2 class="section-title reveal">Tools &amp; <span class="gradient-text">Technologies</span></h2>
             <div class="divider reveal"></div>
 
-            <div class="tech-grid reveal" style="margin-top:40px">
+            <div class="tech-grid" style="margin-top:40px">
 
                 <div class="tech-card">
                     <div class="tech-icon">
@@ -1932,40 +1932,29 @@
         }
 
         // ── SCROLL REVEAL OBSERVER ──
-        // Memilih elemen mana saja yang ingin diberi animasi otomatis tanpa mengubah HTML
-        const elementsToReveal = document.querySelectorAll
-           (`
+        const elementsToReveal = document.querySelectorAll(`
             .section-tag, .section-title, .divider, 
             .about-text p, .highlight-card, .stat-card, .slogan-card, 
             .tech-card, .gallery-container, .chat-box, .contact-form-box
-           `);
+`       );
 
-        // 1. Tambahkan class .reveal ke semua elemen di atas secara otomatis
         elementsToReveal.forEach((el, index) => {
             el.classList.add('reveal');
-
-            // Opsional: Bikin efek berurutan (stagger) seperti di React (delay: index * 0.1)
-            // Khusus untuk card project & tech agar munculnya gantian
-            if (el.classList.contains('project-card') || el.classList.contains('tech-card') || el.classList.contains('highlight-card'))
-            {
-                el.style.transitionDelay = `${(index % 4) * 0.1}s`;
+            if (el.classList.contains('tech-card')) {
+                // Bikin logo tech munculnya gantian (stagger)
+                el.style.transitionDelay = `${(index % 8) * 0.1}s`;
             }
         });
 
-        // 2. Gunakan Intersection Observer untuk memicu animasi saat di-scroll
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('active'); // Munculkan elemen
-                    observer.unobserve(entry.target);     // Hentikan pantauan (animasi cuma 1x / once: true)
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px" // Trigger animasi sedikit sebelum elemen benar-benar masuk tengah layar
-        });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-        // Jalankan observer
         elementsToReveal.forEach(el => revealObserver.observe(el));
 
         // ── GALLERY CAROUSEL LOGIC ──
