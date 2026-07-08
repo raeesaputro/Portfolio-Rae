@@ -710,35 +710,99 @@
                 border-color: transparent;
             }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 20px;
+        /* ── ROTATING GALLERY CAROUSEL (TANPA MUTER/ROTATE) ── */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 520px; /* Sesuaikan tinggi agar pas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 20px;
         }
 
-        .project-card {
+        .gallery-item {
+            position: absolute;
+            width: 85vw;
+            max-width: 400px; /* Ukuran card di tengah */
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border);
             background: var(--bg-card);
-            transition: transform .3s, border-color .3s;
+            /* Ini transisi rahasianya: Smooth ngegeser, nge-fade, & nge-zoom! */
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
         }
 
-            .project-card:hover {
-                transform: translateY(-4px);
-                border-color: #ffffff;
+            /* Status Posisi (Diatur otomatis oleh JavaScript) */
+            .gallery-item.center {
+                transform: translateX(0) scale(1);
+                z-index: 10;
+                opacity: 1;
+                filter: brightness(100%);
             }
 
-        .project-thumb {
-            height: 160px;
+            .gallery-item.left {
+                /* Menggeser ke kiri (-70%), mengecil, meredup */
+                transform: translateX(-70%) scale(0.85);
+                z-index: 5;
+                opacity: 0.45;
+                filter: brightness(50%);
+            }
+
+            .gallery-item.right {
+                /* Menggeser ke kanan (70%), mengecil, meredup */
+                transform: translateX(70%) scale(0.85);
+                z-index: 5;
+                opacity: 0.45;
+                filter: brightness(50%);
+            }
+
+            .gallery-item.hidden {
+                transform: translateX(0) scale(0.5);
+                z-index: 0;
+                opacity: 0;
+                filter: brightness(30%);
+                pointer-events: none;
+            }
+
+        .gallery-controls {
+            position: absolute;
+            bottom: 0;
+            z-index: 20;
+            display: flex;
+            gap: 16px;
+        }
+
+        .gallery-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 56px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+            .gallery-btn:hover {
+                background: #fff;
+                color: #000;
+                transform: scale(1.05);
+            }
+
+        /* Pertahankan desain isi card Anda */
+        .project-thumb {
+            height: 180px;
             position: relative;
             overflow: hidden;
-            background: #111111 !important; /* Forces strict monochrome over inline styles */
+            background: #111;
+            filter: grayscale(100%);
         }
 
         .project-thumb-overlay {
@@ -757,7 +821,7 @@
             color: rgba(255,255,255,.8);
         }
 
-        .project-card:hover .project-thumb-overlay {
+        .gallery-item:hover .project-thumb-overlay {
             opacity: 1;
         }
 
@@ -783,10 +847,6 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-        }
-
-        .project-card[data-hidden] {
-            display: none;
         }
 
         /* ── CONTACT ── */
@@ -1470,81 +1530,57 @@
                 <button class="filter-btn" data-filter="web">Web</button>
                 <button class="filter-btn" data-filter="fullstack">Full Stack</button>
             </div>
-            <div class="projects-grid" id="projectsGrid">
-                <div class="project-card" data-cat="web">
-                    <div class="project-thumb">
-                        <!-- Ini tag untuk memasukkan gambar Anda -->
-                        <img src="Graphic-Design/Post/PKL/AkunAlghazi.official.png" alt="Project 1" style="width: 100%; height: 100%; object-fit: cover;">
 
+            <!-- KONTEMPORER CAROUSEL -->
+            <div class="gallery-container">
+                <!-- Card 1 -->
+                <div class="gallery-item" data-cat="web">
+                    <div class="project-thumb">
+                        <img src="Graphic-Design/Post/PKL/gambar1.webp" alt="Project 1" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                         <div class="project-thumb-overlay">VIEW PROJECT →</div>
                     </div>
                     <div class="project-body">
                         <div class="project-title">Website Sekolah</div>
-                        <div class="project-desc">Website profil dan informasi sekolah dengan sistem manajemen konten sederhana.</div>
-                        <div class="project-stack">
-                            <span class="chip">React</span><span class="chip">Tailwind</span><span class="chip">Firebase</span>
-                        </div>
+                        <div class="project-desc">Website profil dan informasi sekolah dengan sistem manajemen konten.</div>
+                        <div class="project-stack"><span class="chip">React</span><span class="chip">Tailwind</span></div>
                     </div>
                 </div>
-                <div class="project-card" data-cat="web">
-                    <div class="project-thumb" style="background:linear-gradient(135deg,#2d1b69,#0d0520)">
-                        🏢<div class="project-thumb-overlay">VIEW PROJECT →</div>
+
+                <!-- Card 2 -->
+                <div class="gallery-item" data-cat="web">
+                    <div class="project-thumb">
+                        <img src="Graphic-Design/Post/PKL/gambar2.webp" alt="Project 2" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                        <div class="project-thumb-overlay">VIEW PROJECT →</div>
                     </div>
                     <div class="project-body">
                         <div class="project-title">Company Profile</div>
-                        <div class="project-desc">Website company profile responsif dengan animasi scroll dan halaman layanan.</div>
-                        <div class="project-stack">
-                            <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span>
-                        </div>
+                        <div class="project-desc">Website responsif dengan animasi scroll dan halaman layanan.</div>
+                        <div class="project-stack"><span class="chip">Next.js</span><span class="chip">CSS</span></div>
                     </div>
                 </div>
-                <div class="project-card" data-cat="web">
-                    <div class="project-thumb" style="background:linear-gradient(135deg,#5a1d3a,#1a0510)">
-                        💍<div class="project-thumb-overlay">VIEW PROJECT →</div>
+
+                <!-- Card 3 -->
+                <div class="gallery-item" data-cat="fullstack">
+                    <div class="project-thumb">
+                        <img src="Graphic-Design/Post/PKL/gambar3.webp" alt="Project 3" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                        <div class="project-thumb-overlay">VIEW PROJECT →</div>
                     </div>
                     <div class="project-body">
-                        <div class="project-title">Web Pernikahan 2.0</div>
-                        <div class="project-desc">Undangan pernikahan digital interaktif dengan countdown, RSVP, dan galeri foto.</div>
-                        <div class="project-stack">
-                            <span class="chip">React</span><span class="chip">Firebase</span>
-                        </div>
+                        <div class="project-title">E-Learning Platform</div>
+                        <div class="project-desc">Platform belajar interaktif dengan sistem video progress tracking.</div>
+                        <div class="project-stack"><span class="chip">Next.js</span><span class="chip">Node.js</span></div>
                     </div>
                 </div>
-                <div class="project-card" data-cat="fullstack">
-                    <div class="project-thumb" style="background:linear-gradient(135deg,#14532d,#052010)">
-                        📚<div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">Website Course</div>
-                        <div class="project-desc">Platform e-learning dengan sistem autentikasi, progress tracking, dan video player.</div>
-                        <div class="project-stack">
-                            <span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">MySQL</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-cat="web">
-                    <div class="project-thumb" style="background:linear-gradient(135deg,#0e4f5c,#021015)">
-                        ✨<div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">Web Portfolio</div>
-                        <div class="project-desc">Portfolio website personal dengan dark mode dan animasi yang smooth.</div>
-                        <div class="project-stack">
-                            <span class="chip">React</span><span class="chip">Vite</span><span class="chip">Tailwind</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-cat="fullstack">
-                    <div class="project-thumb" style="background:linear-gradient(135deg,#431407,#150500)">
-                        🚀<div class="project-thumb-overlay">VIEW PROJECT →</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-title">Company Profile 2.0</div>
-                        <div class="project-desc">Versi kedua company profile dengan desain lebih modern dan CMS terintegrasi.</div>
-                        <div class="project-stack">
-                            <span class="chip">Next.js</span><span class="chip">Sanity</span><span class="chip">Tailwind</span>
-                        </div>
-                    </div>
+
+                <!-- Card 4 (Bisa tambah lagi sebanyak-banyaknya di bawah sini) -->
+                <!-- Tombol Kiri Kanan -->
+                <div class="gallery-controls">
+                    <button class="gallery-btn" id="btn-prev" aria-label="Previous">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" /></svg>
+                    </button>
+                    <button class="gallery-btn" id="btn-next" aria-label="Next">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" /></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1825,6 +1861,79 @@
 
         // Jalankan observer
         elementsToReveal.forEach(el => revealObserver.observe(el));
+
+        // ── GALLERY CAROUSEL LOGIC ──
+        let currentIndex = 0;
+        const cards = Array.from(document.querySelectorAll('.gallery-item'));
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+
+        function updateGallery() {
+            const visibleCards = cards.filter(card => card.style.display !== 'none');
+            if (visibleCards.length === 0) return;
+            if (currentIndex >= visibleCards.length) currentIndex = 0;
+
+            // Sembunyikan semua dulu
+            cards.forEach(card => card.className = 'gallery-item hidden');
+
+            const len = visibleCards.length;
+
+            if (len === 1) {
+                visibleCards[0].className = 'gallery-item center';
+                return;
+            }
+
+            // Set Center
+            visibleCards[currentIndex].className = 'gallery-item center';
+
+            // Set Kiri
+            const leftIndex = (currentIndex - 1 + len) % len;
+            visibleCards[leftIndex].className = 'gallery-item left';
+
+            // Set Kanan
+            if (len > 2) {
+                const rightIndex = (currentIndex + 1) % len;
+                visibleCards[rightIndex].className = 'gallery-item right';
+            } else {
+                visibleCards[1 - currentIndex].className = 'gallery-item right';
+            }
+        }
+
+        // Event Klik Tombol
+        if (btnNext && btnPrev) {
+            btnNext.addEventListener('click', () => {
+                const visibleCards = cards.filter(card => card.style.display !== 'none');
+                currentIndex = (currentIndex + 1) % visibleCards.length;
+                updateGallery();
+            });
+
+            btnPrev.addEventListener('click', () => {
+                const visibleCards = cards.filter(card => card.style.display !== 'none');
+                currentIndex = (currentIndex - 1 + visibleCards.length) % visibleCards.length;
+                updateGallery();
+            });
+        }
+
+        // Bikin Card Kiri/Kanan bisa diklik buat geser ke tengah
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (card.classList.contains('left')) btnPrev.click();
+                if (card.classList.contains('right')) btnNext.click();
+            });
+        });
+
+        // Update jika tombol filter kategori diklik
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setTimeout(() => {
+                    currentIndex = 0; // Reset ke gambar pertama kalau pindah filter
+                    updateGallery();
+                }, 50);
+            });
+        });
+
+        // Jalankan saat web dibuka
+        updateGallery();
     </script>
 </body>
 </html>
