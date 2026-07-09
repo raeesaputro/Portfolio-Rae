@@ -21,7 +21,6 @@
             --bg-card: #0a0a0a;
             --border: #333333;
             --border-mid: #555555;
-            /* Mapped to monochrome to preserve inline HTML styles */
             --purple: #ffffff;
             --cyan: #aaaaaa;
             --text: #ffffff;
@@ -81,7 +80,6 @@
             color: #ffffff;
         }
 
-        /* text-stroke utility */
         .text-stroke {
             color: transparent !important;
             -webkit-text-stroke: 1px #ffffff;
@@ -89,7 +87,6 @@
             background: none !important;
         }
 
-        /* Applied creatively to large typography (h1) without changing HTML */
         .hero-h1 .gradient-text {
             color: transparent !important;
             -webkit-text-stroke: 1px #ffffff;
@@ -181,7 +178,6 @@
             border-radius: 2px;
         }
 
-        /* Aurora blobs (Monochrome) */
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -197,7 +193,6 @@
             background: #111111;
         }
 
-        /* ── SCROLLBAR ── */
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -269,12 +264,10 @@
             font-weight: 600;
             padding: 7px 18px;
             border-radius: 8px;
-            color: #000000; /* Teks warna hitam */
+            color: #000000;
             border: 1px solid #ffffff;
-            /* Efek Kotak Bersinar (Putih dengan sapuan Perak) */
             background-image: linear-gradient(110deg, #ffffff 35%, #cccccc 50%, #ffffff 75%, #ffffff);
             background-size: 200% 100%;
-            /* ATUR KECEPATAN DI SINI (Ubah 2s sesuai selera) */
             animation: shine 2s linear infinite;
             transition: transform .2s, border-color .2s;
         }
@@ -404,30 +397,6 @@
             margin-bottom: 48px;
         }
 
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .hero-stat-value {
-            font-family: var(--font-mono);
-            font-size: clamp(24px,3vw,36px);
-            font-weight: 600;
-        }
-
-        .hero-stat-label {
-            font-size: 11px;
-            color: var(--text-dim);
-            margin-top: 4px;
-            font-family: var(--font-mono);
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        /* Profile card */
         .profile-card {
             width: 350px;
             flex-shrink: 0;
@@ -440,37 +409,12 @@
             animation: float 4s ease-in-out infinite;
             background: #000000;
             border: 1px solid #333333;
-            box-shadow: none;
             transition: box-shadow 0.3s ease;
         }
 
             .profile-card:hover {
                 box-shadow: 0 0 20px rgba(255,255,255,0.15);
             }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 16px;
-            background: #111111;
-            border: 1px solid #333333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            filter: grayscale(100%);
-        }
-
-        .profile-name {
-            font-family: var(--font-head);
-            font-weight: 700;
-            font-size: 17px;
-        }
-
-        .profile-role {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
 
         .profile-status {
             display: flex;
@@ -508,6 +452,13 @@
             font-family: var(--font-mono);
         }
 
+        .profile-name {
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 17px;
+            margin-top: 8px;
+        }
+
         .profile-cta {
             width: 100%;
             padding: 11px;
@@ -516,12 +467,10 @@
             font-weight: 600;
             font-size: 14px;
             text-align: center;
-            color: #000000; /* Teks warna hitam */
+            color: #000000;
             border: 1px solid #ffffff;
-            /* Efek Kotak Bersinar (Putih dengan sapuan Perak) */
             background-image: linear-gradient(110deg, #ffffff 35%, #cccccc 50%, #ffffff 75%, #ffffff);
             background-size: 200% 100%;
-            /* ATUR KECEPATAN DI SINI (Ubah 2s sesuai selera) */
             animation: shine 2s linear infinite;
             transition: transform .2s, border-color .2s;
         }
@@ -624,13 +573,8 @@
         .slogan-card {
             padding: 18px;
             border-radius: 14px;
-            text-align: center;
             border: 1px dashed #444444;
             background: #050505;
-            font-size: 13px;
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: 1.6;
         }
 
         /* ── TECHSTACK ── */
@@ -640,7 +584,6 @@
             overflow: hidden;
         }
 
-        /* Lebar kolom disesuaikan agar card lebih lega */
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -660,13 +603,12 @@
             cursor: pointer;
         }
 
-            /* Efek hover pada kotak: Kotak ikut naik sedikit dan pinggirannya jadi putih */
             .tech-card:hover {
                 transform: translateY(-5px);
                 border-color: #ffffff;
             }
 
-        /* Ukuran logo diperbesar jadi 48px dan dibikin abu-abu di awal */
+        /* Gambar Langsung Berwarna */
         .tech-icon img {
             width: 48px;
             height: 48px;
@@ -674,10 +616,9 @@
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* ANIMASI HOVER PADA LOGO: Membesar, melompat, dan warnanya kembali menyala! */
         .tech-card:hover .tech-icon img {
             transform: scale(1.25) translateY(-4px);
-            filter: grayscale(0%) drop-shadow(0 10px 15px rgba(255,255,255,0.1));
+            filter: drop-shadow(0 10px 15px rgba(255,255,255,0.1));
         }
 
         .tech-name {
@@ -690,19 +631,6 @@
 
         .tech-card:hover .tech-name {
             color: #ffffff;
-        }
-        /* Tulisan ikut terang saat di-hover */
-
-        .tech-icon {
-            font-size: 26px;
-            line-height: 1;
-        }
-
-        .tech-name {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-align: center;
-            font-family: var(--font-mono);
         }
 
         /* ── PROJECTS ── */
@@ -739,11 +667,10 @@
                 border-color: transparent;
             }
 
-        /* ── ROTATING GALLERY CAROUSEL (TANPA MUTER/ROTATE) ── */
         .gallery-container {
             position: relative;
             width: 100%;
-            height: 550px; /* Tinggi dibesarkan agar cinematic */
+            height: 550px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -754,9 +681,9 @@
         .gallery-item {
             position: absolute;
             width: 85vw;
-            max-width: 650px; /* Lebar diperbesar */
+            max-width: 650px;
             height: 100%;
-            border-radius: 32px; /* Lebih membulat (2rem) */
+            border-radius: 32px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -764,14 +691,13 @@
             cursor: pointer;
         }
 
-        /* Gambar Full Cover */
+        /* Gambar Project Langsung Berwarna */
         .gallery-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Efek Gradien Gelap di bawah gambar agar teks terbaca */
         .gallery-overlay {
             position: absolute;
             inset: 0;
@@ -779,7 +705,6 @@
             pointer-events: none;
         }
 
-        /* Posisi Transisi Card */
         .gallery-item.center {
             transform: translateX(0) scale(1);
             z-index: 10;
@@ -809,15 +734,13 @@
             pointer-events: none;
         }
 
-        /* Konten Teks melayang di bawah */
         .gallery-content {
             position: absolute;
-            bottom: 40px; /* Jarak dari bawah */
+            bottom: 40px;
             left: 32px;
             right: 32px;
             z-index: 10;
             color: #ffffff;
-            /* Animasi Teks: Hanya muncul kalau card ada di tengah */
             transform: translateY(16px);
             opacity: 0;
             transition: all 0.45s ease-out;
@@ -867,7 +790,6 @@
                 backdrop-filter: blur(4px);
             }
 
-        /* Tombol Prev/Next di bawah Carousel */
         .gallery-controls {
             position: absolute;
             bottom: 0;
@@ -896,58 +818,58 @@
                 transform: scale(1.05);
             }
 
-        /* Pertahankan desain isi card Anda */
-        .project-thumb {
-            height: 180px;
-            position: relative;
-            overflow: hidden;
-            background: #111;
-            filter: grayscale(100%);
-        }
-
-        .project-thumb-overlay {
-            position: absolute;
+        /* ── IMAGE EXPAND MODAL (LIGHTBOX) ── */
+        .modal-expand {
+            position: fixed;
+            z-index: 9999;
             inset: 0;
-            background: linear-gradient(to top,rgba(0,0,0,.8),transparent);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
-            padding-bottom: 10px;
+            padding: 20px;
             opacity: 0;
-            transition: opacity .3s;
-            font-size: 11px;
-            font-family: var(--font-mono);
-            letter-spacing: .1em;
-            color: rgba(255,255,255,.8);
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .gallery-item:hover .project-thumb-overlay {
-            opacity: 1;
+            .modal-expand.show {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+        .modal-content {
+            max-width: 95vw;
+            max-height: 90vh;
+            border-radius: 20px;
+            object-fit: contain;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        .project-body {
-            padding: 18px 20px 20px;
+        .modal-expand.show .modal-content {
+            transform: scale(1);
         }
 
-        .project-title {
-            font-family: var(--font-head);
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 8px;
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 10000;
         }
 
-        .project-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 14px;
-        }
-
-        .project-stack {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
+            .modal-close:hover {
+                transform: scale(1.2) rotate(90deg);
+            }
 
         /* ── CONTACT ── */
         #contact {
@@ -962,7 +884,6 @@
             gap: 32px;
         }
 
-        /* Chat */
         .chat-box {
             border-radius: 16px;
             overflow: hidden;
@@ -1120,7 +1041,6 @@
                 stroke: #000000 !important;
             }
 
-        /* Form */
         .contact-form-box {
             border-radius: 16px;
             padding: 28px;
@@ -1415,67 +1335,16 @@
             }
         }
 
-        /* ── SCROLL REVEAL (MENGADOPSI FRAMER MOTION) ── */
-        .reveal 
-        {
+        /* ── SCROLL REVEAL ── */
+        .reveal {
             opacity: 0;
             transform: translateY(40px) scale(0.98);
             transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-            .reveal.active 
-            {
+
+            .reveal.active {
                 opacity: 1;
                 transform: translateY(0) scale(1);
-            }
-
-        /* ── IMAGE EXPAND MODAL ── */
-        .modal-expand {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-            .modal-expand.show {
-                display: flex;
-                opacity: 1;
-            }
-
-        .modal-content {
-            max-width: 95vw;
-            max-height: 90vh;
-            border-radius: 20px;
-            object-fit: contain;
-            transform: scale(0.8);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        }
-
-        .modal-expand.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 24px;
-            right: 32px;
-            color: #ffffff;
-            font-size: 40px;
-            font-weight: 300;
-            cursor: pointer;
-            transition: transform 0.2s;
-            z-index: 10000;
-        }
-
-            .modal-close:hover {
-                transform: scale(1.2) rotate(90deg);
             }
     </style>
 </head>
@@ -1535,8 +1404,9 @@
                 <div class="profile-card glass">
                     <div class="profile-status"><span></span>Available for hire</div>
                     <div class="profile-img-box">profile photo</div>
-                    <div class="profile-namme">Multimedia Specialist</div>
-                    <a href="#contact" class="profile-cta">Contact Me</a>
+                    <div class="profile-name">Raeyhan Rizky</div>
+                    <div class="profile-role" style="color:var(--text-muted)">Multimedia Specialist</div>
+                    <a href="#contact" class="profile-cta" style="margin-top:10px;">Contact Me</a>
                 </div>
             </div>
         </div>
@@ -1632,7 +1502,6 @@
 
                 <div class="tech-card">
                     <div class="tech-icon">
-                        <!-- Pastikan rute/nama file SVG Premiere Pro Anda sudah benar -->
                         <img src="./premierepro.svg" alt="Premiere Pro">
                     </div>
                     <div class="tech-name">Premiere Pro</div>
@@ -1647,7 +1516,6 @@
 
                 <div class="tech-card">
                     <div class="tech-icon">
-                        <!-- Pastikan rute/nama file SVG Figma Anda sudah benar -->
                         <img src="./figma.svg" alt="Figma">
                     </div>
                     <div class="tech-name">Figma</div>
@@ -1655,7 +1523,6 @@
 
                 <div class="tech-card">
                     <div class="tech-icon">
-                        <!-- Pastikan rute/nama file SVG Capcut Anda sudah benar -->
                         <img src="./capcut.svg" alt="CapCut">
                     </div>
                     <div class="tech-name">CapCut</div>
@@ -1669,24 +1536,22 @@
     <section id="projects" class="section">
         <div class="blob blob-purple" style="width:450px;height:450px;top:0;left:50%;transform:translateX(-50%);opacity:.25"></div>
         <div class="container">
-            <div class="section-tag">Projects</div>
-            <h2 class="section-title">Things I've <span class="gradient-text">Built</span></h2>
-            <div class="divider"></div>
-            <div class="filter-bar" style="margin-top:32px">
+            <div class="section-tag reveal">Projects</div>
+            <h2 class="section-title reveal">Things I've <span class="gradient-text">Built</span></h2>
+            <div class="divider reveal"></div>
+
+            <div class="filter-bar reveal" style="margin-top:32px">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="web">Web</button>
                 <button class="filter-btn" data-filter="fullstack">Full Stack</button>
             </div>
 
             <!-- KONTEMPORER CAROUSEL -->
-            <div class="gallery-container">
+            <div class="gallery-container reveal">
                 <!-- Card 1 -->
                 <div class="gallery-item" data-cat="web">
-                    <!-- Gambar Cover -->
                     <img src="Graphic-Design/1.webp" alt="Website Sekolah" class="gallery-img" loading="lazy">
                     <div class="gallery-overlay"></div>
-
-                    <!-- Teks yang muncul saat di tengah -->
                     <div class="gallery-content">
                         <div class="gallery-label">Web Development</div>
                         <h3 class="gallery-title">Website Sekolah</h3>
@@ -1701,7 +1566,6 @@
                 <div class="gallery-item" data-cat="web">
                     <img src="Graphic-Design/2.webp" alt="Company Profile" class="gallery-img" loading="lazy">
                     <div class="gallery-overlay"></div>
-
                     <div class="gallery-content">
                         <div class="gallery-label">Corporate</div>
                         <h3 class="gallery-title">Company Profile</h3>
@@ -1716,7 +1580,6 @@
                 <div class="gallery-item" data-cat="fullstack">
                     <img src="Graphic-Design/Post/PKL/gambar3.webp" alt="E-Learning Platform" class="gallery-img" loading="lazy">
                     <div class="gallery-overlay"></div>
-
                     <div class="gallery-content">
                         <div class="gallery-label">Full Stack</div>
                         <h3 class="gallery-title">E-Learning Platform</h3>
@@ -1746,13 +1609,13 @@
         <div class="blob blob-cyan" style="width:300px;height:300px;top:0;left:0;opacity:.25"></div>
         <div class="container">
             <div style="text-align:center;margin-bottom:48px">
-                <div class="section-tag">Contact</div>
-                <h2 class="section-title">Let's <span class="gradient-text">Work Together</span></h2>
-                <div class="divider" style="margin:16px auto 0"></div>
+                <div class="section-tag reveal">Contact</div>
+                <h2 class="section-title reveal">Let's <span class="gradient-text">Work Together</span></h2>
+                <div class="divider reveal" style="margin:16px auto 0"></div>
             </div>
             <div class="contact-grid">
                 <!-- Chat mockup -->
-                <div class="chat-box glass">
+                <div class="chat-box glass reveal">
                     <div class="chat-header">
                         <div class="chat-avatar">HR</div>
                         <div>
@@ -1770,7 +1633,7 @@
                 </div>
 
                 <!-- Form -->
-                <div class="contact-form-box glass" id="formBox">
+                <div class="contact-form-box glass reveal" id="formBox">
                     <div id="formContent">
                         <div style="margin-bottom:4px">
                             <label class="form-label">Full Name</label>
@@ -1821,6 +1684,12 @@
         </div>
     </footer>
 
+    <!-- ── IMAGE EXPAND MODAL (LIGHTBOX) ── -->
+    <div id="imgModal" class="modal-expand">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImg" src="">
+    </div>
+
     <script>
         // ── NAV ──
         window.addEventListener('scroll', () => {
@@ -1842,7 +1711,6 @@
                 const t = Math.min((now - start) / duration, 1);
                 const ease = 1 - Math.pow(1 - t, 3);
                 const val = ease * target;
-                // Jika isFloat true, gunakan 1 angka di belakang koma (misal: 4.7)
                 el.textContent = (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
                 if (t < 1) requestAnimationFrame(update);
             }
@@ -1851,11 +1719,10 @@
 
         const aboutObs = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
-                // Jalankan animasi saat bagian About terlihat di layar
                 countUp(document.getElementById('about-projects'), 15, 1400, '+');
                 countUp(document.getElementById('about-views'), 4.7, 2000, 'M', true);
                 countUp(document.getElementById('about-tools'), 8, 1000, '+');
-                aboutObs.disconnect(); // Hentikan observasi agar tidak berulang
+                aboutObs.disconnect();
             }
         }, { threshold: 0.5 });
 
@@ -1868,11 +1735,11 @@
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
                 btn.classList.add('active')
                 const f = btn.dataset.filter
-                document.querySelectorAll('.project-card').forEach(card => {
+                document.querySelectorAll('.gallery-item').forEach(card => {
                     card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none'
                 })
             })
-        })
+        });
 
         // ── CHAT ANIMATION ──
         const chatData = [
@@ -1980,12 +1847,11 @@
                 .section-tag, .section-title, .divider,
                 .about-text p, .highlight-card, .stat-card, .slogan-card,
                 .tech-card, .gallery-container, .chat-box, .contact-form-box
-`       );
+            `);
 
         elementsToReveal.forEach((el, index) => {
             el.classList.add('reveal');
             if (el.classList.contains('tech-card')) {
-                // Bikin logo tech munculnya gantian (stagger)
                 el.style.transitionDelay = `${(index % 8) * 0.1}s`;
             }
         });
@@ -2012,24 +1878,18 @@
             if (visibleCards.length === 0) return;
             if (currentIndex >= visibleCards.length) currentIndex = 0;
 
-            // Sembunyikan semua dulu
             cards.forEach(card => card.className = 'gallery-item hidden');
 
             const len = visibleCards.length;
-
             if (len === 1) {
                 visibleCards[0].className = 'gallery-item center';
                 return;
             }
 
-            // Set Center
             visibleCards[currentIndex].className = 'gallery-item center';
-
-            // Set Kiri
             const leftIndex = (currentIndex - 1 + len) % len;
             visibleCards[leftIndex].className = 'gallery-item left';
 
-            // Set Kanan
             if (len > 2) {
                 const rightIndex = (currentIndex + 1) % len;
                 visibleCards[rightIndex].className = 'gallery-item right';
@@ -2038,7 +1898,6 @@
             }
         }
 
-        // Event Klik Tombol
         if (btnNext && btnPrev) {
             btnNext.addEventListener('click', () => {
                 const visibleCards = cards.filter(card => card.style.display !== 'none');
@@ -2053,33 +1912,39 @@
             });
         }
 
-        // Bikin Card Kiri/Kanan bisa diklik buat geser ke tengah
+        // Update jika tombol filter kategori diklik
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setTimeout(() => {
+                    currentIndex = 0;
+                    updateGallery();
+                }, 50);
+            });
+        });
+
         // ── MODAL EXPAND LOGIC ──
         const modal = document.getElementById("imgModal");
         const modalImg = document.getElementById("modalImg");
         const modalClose = document.getElementById("modalClose");
 
-        // Fungsi buka gambar
         function openModal(src) {
             modalImg.src = src;
             modal.classList.add("show");
-            document.body.style.overflow = "hidden"; // Kunci scroll web saat gambar terbuka
+            document.body.style.overflow = "hidden";
         }
 
-        // Fungsi tutup gambar
         function closeModal() {
             modal.classList.remove("show");
-            document.body.style.overflow = "auto"; // Buka kunci scroll web
+            document.body.style.overflow = "auto";
             setTimeout(() => modalImg.src = "", 300);
         }
 
         modalClose.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
-            // Tutup kalau klik area kosong di luar gambar
             if (e.target === modal) closeModal();
         });
 
-        // Bikin Card Kiri/Kanan bisa diklik buat geser ke tengah ATAU Expand!
+        // Event Klik pada setiap Project Card
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 if (card.classList.contains('left')) {
@@ -2087,32 +1952,13 @@
                 } else if (card.classList.contains('right')) {
                     btnNext.click();
                 } else if (card.classList.contains('center')) {
-                    // Jika card sudah di tengah, klik untuk membesarkan gambar!
                     const imgSrc = card.querySelector('.gallery-img').src;
                     openModal(imgSrc);
                 }
             });
         });
 
-        // Update jika tombol filter kategori diklik
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                setTimeout(() => {
-                    currentIndex = 0; // Reset ke gambar pertama kalau pindah filter
-                    updateGallery();
-                }, 50);
-            });
-        });
-
-        // Jalankan saat web dibuka
         updateGallery();
     </script>
-
-    <!-- ── IMAGE EXPAND MODAL ── -->
-    <div id="imgModal" class="modal-expand">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <img class="modal-content" id="modalImg" src="">
-    </div>
-
 </body>
 </html>
