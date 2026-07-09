@@ -736,7 +736,7 @@
 
         .gallery-content {
             position: absolute;
-            bottom: 40px;
+            bottom: 32px;
             left: 32px;
             right: 32px;
             z-index: 10;
@@ -744,6 +744,13 @@
             transform: translateY(16px);
             opacity: 0;
             transition: all 0.45s ease-out;
+            /* --- TAMBAHAN KOTAK KACA GELAP --- */
+            background: rgba(0, 0, 0, 0.75); /* Hitam transparan */
+            backdrop-filter: blur(12px); /* Efek blur di belakang kotak */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .gallery-item.center .gallery-content {
@@ -1557,7 +1564,9 @@
                         <h3 class="gallery-title">alghazi.official</h3>
                         <p class="gallery-desc">Translated creative briefs into precise product shoots as the sole videographer. Handled end-to-end post-production, securing 1.6M organic views, 154K likes, and IDR 32,000,000 in monthly in-house production savings.</p>
                         <div class="gallery-stack">
-                            <span class="chip">Premiere Pro</span><span class="chip">Capcut</span><span class="chip">Camera Operation</span>
+                            <span class="chip">Premiere Pro</span>
+                            <span class="chip">Capcut</span>
+                            <span class="chip">Camera Operation</span>
                         </div>
                     </div>
                 </div>
