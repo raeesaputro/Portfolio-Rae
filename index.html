@@ -1429,6 +1429,55 @@
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
+
+        /* ── IMAGE EXPAND MODAL ── */
+        .modal-expand {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .modal-expand.show {
+                display: flex;
+                opacity: 1;
+            }
+
+        .modal-content {
+            max-width: 95vw;
+            max-height: 90vh;
+            border-radius: 20px;
+            object-fit: contain;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-expand.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .modal-close:hover {
+                transform: scale(1.2) rotate(90deg);
+            }
     </style>
 </head>
 <body>
@@ -1787,12 +1836,10 @@
         function closeMobile() { menuOpen = false; document.getElementById('mobileMenu').classList.remove('open') }
 
         // ── COUNT-UP ──
-        function countUp(el, target, duration, suffix = '+', isFloat = false)
-        {
+        function countUp(el, target, duration, suffix = '+', isFloat = false) {
             if (!el) return;
             const start = performance.now();
-            const update = (now) =>
-            {
+            const update = (now) => {
                 const t = Math.min((now - start) / duration, 1);
                 const ease = 1 - Math.pow(1 - t, 3);
                 const val = ease * target;
@@ -1803,10 +1850,8 @@
             requestAnimationFrame(update);
         }
 
-        const aboutObs = new IntersectionObserver((entries) =>
-        {
-            if (entries[0].isIntersecting)
-            {
+        const aboutObs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
                 // Jalankan animasi saat bagian About terlihat di layar
                 countUp(document.getElementById('about-projects'), 15, 1400, '+');
                 countUp(document.getElementById('about-views'), 4.7, 2000, 'M', true);
@@ -1933,9 +1978,9 @@
 
         // ── SCROLL REVEAL OBSERVER ──
         const elementsToReveal = document.querySelectorAll(`
-            .section-tag, .section-title, .divider, 
-            .about-text p, .highlight-card, .stat-card, .slogan-card, 
-            .tech-card, .gallery-container, .chat-box, .contact-form-box
+                .section-tag, .section-title, .divider,
+                .about-text p, .highlight-card, .stat-card, .slogan-card,
+                .tech-card, .gallery-container, .chat-box, .contact-form-box
 `       );
 
         elementsToReveal.forEach((el, index) => {
@@ -2010,10 +2055,40 @@
         }
 
         // Bikin Card Kiri/Kanan bisa diklik buat geser ke tengah
+        // ── MODAL EXPAND LOGIC ──
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalClose = document.getElementById("modalClose");
+
+        // Fungsi buka gambar
+        function openModal(src) {
+            modalImg.src = src;
+            modal.classList.add("show");
+            document.body.style.overflow = "hidden"; // Kunci scroll layar latar belakang
+        }
+
+        // Fungsi tutup gambar
+        function closeModal() {
+            modal.classList.remove("show");
+            document.body.style.overflow = "auto"; // Buka kunci scroll
+            setTimeout(() => modalImg.src = "", 300); // Bersihkan src setelah animasi selesai
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(); // Tutup kalau klik area kosong di luar gambar
+        });
+
+        // Bikin Card bisa diklik buat geser ATAU Expand
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 if (card.classList.contains('left')) btnPrev.click();
-                if (card.classList.contains('right')) btnNext.click();
+                else if (card.classList.contains('right')) btnNext.click();
+                else if (card.classList.contains('center')) {
+                    // Jika card sudah di tengah, expand gambarnya!
+                    const imgSrc = card.querySelector('img').src;
+                    openModal(imgSrc);
+                }
             });
         });
 
@@ -2030,5 +2105,11 @@
         // Jalankan saat web dibuka
         updateGallery();
     </script>
+
+    <div id="imgModal" class="modal-expand">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImg" src="">
+    </div>
+
 </body>
 </html>
