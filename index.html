@@ -1635,16 +1635,17 @@
                     </div>
                 </div>
 
-                <!-- Card 4 -->
-                <div class="gallery-item" data-cat="fullstack">
-                    <img src="Graphic-Design/3.webp" alt="E-Learning Platform" class="gallery-img" loading="lazy">
+                <div class="gallery-item" data-cat="web" data-vimeo="https://player.vimeo.com/video/1208653335">
+                    <!-- Ini cover gambarnya. Biarkan saja gambar biasa. -->
+                    <img src="Graphic-Design/bananania.webp" alt="Bananania" class="gallery-img" loading="lazy">
                     <div class="gallery-overlay"></div>
+                    <!-- Teks Card -->
                     <div class="gallery-content">
-                        <div class="gallery-label">Full Stack</div>
-                        <h3 class="gallery-title">E-Learning Platform</h3>
-                        <p class="gallery-desc">Platform belajar interaktif dengan sistem video progress tracking.</p>
+                        <div class="gallery-label">Video Editing</div>
+                        <h3 class="gallery-title">Bananania Ads</h3>
+                        <p class="gallery-desc">Product showcase video editing.</p>
                         <div class="gallery-stack">
-                            <span class="chip">Next.js</span><span class="chip">Node.js</span>
+                            <span class="chip">Premiere Pro</span>
                         </div>
                     </div>
                 </div>
@@ -1995,26 +1996,43 @@
             });
         });
 
-        // ── MODAL EXPAND LOGIC ──
+        // ── MODAL EXPAND LOGIC (GAMBAR & VIDEO) ──
         const modal = document.getElementById("imgModal");
-        const modalImg = document.getElementById("modalImg");
-        const modalClose = document.getElementById("modalClose");
 
-        function openModal(src) {
-            modalImg.src = src;
+        // Kita sulap kotak Modal yang awalnya cuma buat gambar, biar bisa nampung Video juga!
+        modal.innerHTML = `
+            <span class="modal-close" id="modalCloseBtn">&times;</span>
+            <div id="modalContentWrapper" style="width: 100%; display: flex; justify-content: center;"></div>
+        `;
+        const modalContentWrapper = document.getElementById("modalContentWrapper");
+        const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+        // Fungsi Buka Modal (Otomatis deteksi Gambar atau Video)
+        function openModal(type, src) {
+            if (type === 'video-vimeo') {
+                // Khusus Video Vimeo (Tanpa judul, tanpa foto profil, langsung Autoplay)
+                modalContentWrapper.innerHTML = `<iframe class="modal-iframe" src="${src}?autoplay=1&title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen style="width: 90vw; max-width: 1000px; aspect-ratio: 16/9; border-radius: 20px; border: none; box-shadow: 0 25px 50px rgba(0,0,0,0.5);"></iframe>`;
+            } else {
+                // Default: Gambar biasa
+                modalContentWrapper.innerHTML = `<img class="modal-content" src="${src}" style="max-height: 90vh; max-width: 95vw; border-radius: 20px; object-fit: contain; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">`;
+            }
+
             modal.classList.add("show");
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden"; // Kunci scroll layar utama
         }
 
+        // Fungsi Tutup Modal
         function closeModal() {
             modal.classList.remove("show");
             document.body.style.overflow = "auto";
-            setTimeout(() => modalImg.src = "", 300);
+            setTimeout(() => {
+                modalContentWrapper.innerHTML = ""; // Hapus konten supaya videonya benar-benar berhenti berbunyi!
+            }, 300);
         }
 
-        modalClose.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
+            if (e.target === modal || e.target === modalContentWrapper) closeModal();
         });
 
         // Event Klik pada setiap Project Card
@@ -2025,12 +2043,22 @@
                 } else if (card.classList.contains('right')) {
                     btnNext.click();
                 } else if (card.classList.contains('center')) {
+
+                    // CEK: APAKAH KARTU INI PUNYA DATA VIMEO?
+                    const videoVimeo = card.getAttribute('data-vimeo');
                     const imgSrc = card.querySelector('.gallery-img').src;
-                    openModal(imgSrc);
+
+                    // Kalau ada Vimeo, mainkan videonya! Kalau tidak, besarkan gambarnya!
+                    if (videoVimeo) {
+                        openModal('video-vimeo', videoVimeo);
+                    } else {
+                        openModal('image', imgSrc);
+                    }
                 }
             });
         });
 
+        // Wajib dipanggil untuk reset posisi gallery
         updateGallery();
     </script>
 </body>
