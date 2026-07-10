@@ -705,13 +705,13 @@
             transform: scale(1.05);
         }
 
-        /* 2. Bikin Tombol "Show More" melayang di tengah (Trik murni CSS tanpa ubah HTML) */
+        /* 2. Tombol Default (Untuk Gambar) */
         .gallery-item.center::after {
-            content: "🔍 Click to Expand"; /* <-- Anda bisa ubah teksnya di sini */
+            content: "🔍 Click to Expand"; /* Teks default gambar */
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -10%); /* Posisi awal sedikit di bawah */
+            transform: translate(-50%, -10%);
             z-index: 15;
             background: #ffffff;
             color: #000000;
@@ -722,11 +722,17 @@
             font-size: 14px;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none; /* Biar Card-nya tetap bisa diklik */
+            pointer-events: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* 3. Munculkan teksnya dari bawah ke tengah saat di-Hover */
+        /* 3. Khusus Video (Otomatis deteksi atribut data-vimeo) */
+        .gallery-item.center[data-vimeo]::after {
+            content: "▶ Play Video"; /* Teks otomatis ganti untuk video */
+            padding: 12px 32px;
+        }
+
+        /* 4. Munculkan tombolnya saat di-hover */
         .gallery-item.center:hover::after {
             opacity: 1;
             transform: translate(-50%, -50%);
