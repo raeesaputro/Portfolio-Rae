@@ -1648,11 +1648,12 @@
                     <div class="gallery-overlay"></div>
                     <!-- Teks Card -->
                     <div class="gallery-content">
-                        <div class="gallery-label">Video Editing</div>
-                        <h3 class="gallery-title">Bananania Ads</h3>
-                        <p class="gallery-desc">Product showcase video editing.</p>
+                        <div class="gallery-label">END-TO-END VIDEO PRODUCTION</div>
+                        <h3 class="gallery-title">Bananania Promotional Brand Storytelling</h3>
+                        <p class="gallery-desc">Executed end-to-end camera, lighting, and Premiere Pro editing to elevate brand promotional storytelling.</p>
                         <div class="gallery-stack">
                             <span class="chip">Premiere Pro</span>
+                            <span class="chip">Camera Operation</span>
                         </div>
                     </div>
                 </div>
@@ -1664,12 +1665,11 @@
                     <div class="gallery-overlay"></div>
 
                     <div class="gallery-content">
-                        <div class="gallery-label">Video Production</div>
-                        <h3 class="gallery-title">Music Video "MV"</h3>
-                        <p class="gallery-desc">Deskripsi singkat tentang project music video ini, gaya editing, atau peran Anda.</p>
+                        <div class="gallery-label">VECTOR ASSET DESIGN</div>
+                        <h3 class="gallery-title">2D Flat Illustration Music Video</h3>
+                        <p class="gallery-desc">Designed 10+ modular flat vector assets in Figma, structurally optimized for seamless motion graphics animation.</p>
                         <div class="gallery-stack">
-                            <span class="chip">Premiere Pro</span>
-                            <span class="chip">After Effects</span>
+                            <span class="chip">Figma</span>
                         </div>
                     </div>
                 </div>
@@ -1717,31 +1717,51 @@
                 </div>
 
                 <!-- Form -->
-                <div class="contact-form-box glass reveal" id="formBox">
-                    <div id="formContent">
-                        <div style="margin-bottom:4px">
-                            <label class="form-label">Full Name</label>
-                            <input class="form-input" id="inp-name" type="text" placeholder="Your name" />
-                            <div class="form-error" id="err-name" style="display:none">Name is required.</div>
+                <div id="formContent">
+                        <!-- Nama & Email (Dibikin sejajar pakai Grid biar rapi) -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 4px;">
+                            <div>
+                                <label class="form-label">Full Name</label>
+                                <input class="form-input" id="inp-name" type="text" placeholder="Your name" />
+                                <div class="form-error" id="err-name" style="display:none">Name is required.</div>
+                            </div>
+                            <div>
+                                <label class="form-label">Email</label>
+                                <input class="form-input" id="inp-email" type="email" placeholder="your@email.com" />
+                                <div class="form-error" id="err-email" style="display:none">Valid email required.</div>
+                            </div>
                         </div>
+
+                        <!-- Inquiry Type (Tujuan Kontak) -->
                         <div>
-                            <label class="form-label">Email</label>
-                            <input class="form-input" id="inp-email" type="email" placeholder="your@email.com" />
-                            <div class="form-error" id="err-email" style="display:none">Valid email required.</div>
+                            <label class="form-label">Inquiry Type</label>
+                            <select class="form-input" id="inp-type" style="cursor: pointer;">
+                                <option value="Project Inquiry (Video Production)">Project Inquiry (Video Production)</option>
+                                <option value="Project Inquiry (Visual Design)">Project Inquiry (Visual Design)</option>
+                                <option value="Full-Time Role Opportunity">Full-Time Role Opportunity</option>
+                                <option value="Other">Other / General Question</option>
+                            </select>
                         </div>
+
+                        <!-- Budget Estimate (Estimasi Anggaran) -->
+                        <div>
+                            <label class="form-label">Budget Estimate</label>
+                            <select class="form-input" id="inp-budget" style="cursor: pointer;">
+                                <option value="< IDR 1,500,000">Under IDR 1,500,000</option>
+                                <option value="IDR 1,500,000 - IDR 3,000,000">IDR 1,500,000 - IDR 3,000,000</option>
+                                <option value="> IDR 3,000,000">IDR 3,000,000+</option>
+                                <option value="Not Sure / N/A">Not sure yet / N/A</option>
+                            </select>
+                        </div>
+
+                        <!-- Pesan -->
                         <div>
                             <label class="form-label">Message</label>
-                            <textarea class="form-input form-textarea" id="inp-msg" placeholder="Tell me about your project..."></textarea>
+                            <textarea class="form-input form-textarea" id="inp-msg" placeholder="Tell me about your project or role..."></textarea>
                             <div class="form-error" id="err-msg" style="display:none">Message cannot be empty.</div>
                         </div>
+                        
                         <button class="form-submit" id="formBtn" onclick="submitForm()">Send Message →</button>
-                    </div>
-                    <div class="form-success" id="formSuccess" style="display:none">
-                        <div class="form-success-icon">✅</div>
-                        <h3>Message Sent!</h3>
-                        <p>Thanks for reaching out. I'll get back to you as soon as possible.</p>
-                        <button class="form-reset" onclick="resetForm()">Send another message →</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1890,40 +1910,84 @@
         if (contactEl) chatObs.observe(contactEl)
 
         // ── FORM ──
+        // ── FORM & WEB3FORMS LOGIC ──
         function submitForm() {
-            const name = document.getElementById('inp-name')
-            const email = document.getElementById('inp-email')
-            const msg = document.getElementById('inp-msg')
-            let ok = true
+            const nameEl  = document.getElementById('inp-name');
+            const emailEl = document.getElementById('inp-email');
+            const msgEl   = document.getElementById('inp-msg');
+            const typeEl  = document.getElementById('inp-type');
+            const budgetEl= document.getElementById('inp-budget');
+            
+            let ok = true;
 
-                ;[['inp-name', 'err-name', v => v.trim()],
-                ['inp-email', 'err-email', v => /\S+@\S+\.\S+/.test(v)],
-                ['inp-msg', 'err-msg', v => v.trim()]
-                ].forEach(([inpId, errId, check]) => {
-                    const el = document.getElementById(inpId)
-                    const err = document.getElementById(errId)
-                    if (!check(el.value)) { el.classList.add('error'); err.style.display = 'block'; ok = false }
-                    else { el.classList.remove('error'); err.style.display = 'none' }
-                })
+            // Validasi Input
+            [['inp-name', 'err-name', v => v.trim() !== ''],
+             ['inp-email', 'err-email', v => /\S+@\S+\.\S+/.test(v)],
+             ['inp-msg', 'err-msg', v => v.trim() !== '']
+            ].forEach(([inpId, errId, check]) => {
+                const el = document.getElementById(inpId);
+                const err = document.getElementById(errId);
+                if (!check(el.value)) { el.classList.add('error'); err.style.display = 'block'; ok = false; }
+                else { el.classList.remove('error'); err.style.display = 'none'; }
+            });
 
-            if (!ok) return
-            const btn = document.getElementById('formBtn')
-            btn.disabled = true; btn.textContent = 'Sending...'
-            setTimeout(() => {
-                document.getElementById('formContent').style.display = 'none'
-                document.getElementById('formSuccess').style.display = 'flex'
-            }, 1200)
+            if (!ok) return;
+
+            const btn = document.getElementById('formBtn');
+            btn.disabled = true; 
+            btn.textContent = 'Sending...';
+
+            // Siapkan data untuk dikirim ke Web3Forms
+            // Siapkan data untuk dikirim ke Web3Forms
+            const formData = new FormData();
+            
+            // Access Key Web3Forms Anda:
+            formData.append("access_key", "42afe5e8-ba1f-4902-9f85-5b92279b5094");
+            
+            formData.append("Name", nameEl.value);
+            formData.append("Email", emailEl.value);
+            formData.append("Inquiry Type", typeEl.value);
+            formData.append("Budget Estimate", budgetEl.value);
+            formData.append("Message", msgEl.value);
+
+            // Kirim via API Fetch
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    // Sukses
+                    document.getElementById('formContent').style.display = 'none';
+                    document.getElementById('formSuccess').style.display = 'flex';
+                } else {
+                    console.log(response);
+                    alert("Something went wrong!");
+                    btn.disabled = false; btn.textContent = 'Send Message →';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Something went wrong!");
+                btn.disabled = false; btn.textContent = 'Send Message →';
+            });
         }
 
         function resetForm() {
             ['inp-name', 'inp-email', 'inp-msg'].forEach(id => {
-                const el = document.getElementById(id); el.value = ''; el.classList.remove('error')
-            })
-                ;['err-name', 'err-email', 'err-msg'].forEach(id => document.getElementById(id).style.display = 'none')
-            document.getElementById('formBtn').disabled = false
-            document.getElementById('formBtn').textContent = 'Send Message →'
-            document.getElementById('formContent').style.display = 'block'
-            document.getElementById('formSuccess').style.display = 'none'
+                const el = document.getElementById(id); el.value = ''; el.classList.remove('error');
+            });
+            // Reset dropdown ke default
+            document.getElementById('inp-type').selectedIndex = 0;
+            document.getElementById('inp-budget').selectedIndex = 0;
+            
+            ['err-name', 'err-email', 'err-msg'].forEach(id => document.getElementById(id).style.display = 'none');
+            
+            document.getElementById('formBtn').disabled = false;
+            document.getElementById('formBtn').textContent = 'Send Message →';
+            document.getElementById('formContent').style.display = 'block';
+            document.getElementById('formSuccess').style.display = 'none';
         }
 
         // ── SCROLL REVEAL OBSERVER ──
