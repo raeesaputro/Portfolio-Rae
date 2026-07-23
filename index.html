@@ -1750,17 +1750,6 @@
                             </select>
                         </div>
 
-                        <!-- Budget Estimate (Estimasi Anggaran) -->
-                        <div>
-                            <label class="form-label">Budget Estimate</label>
-                            <select class="form-input" id="inp-budget" style="cursor: pointer;">
-                                <option value="< IDR 1,500,000">Under IDR 1,500,000</option>
-                                <option value="IDR 1,500,000 - IDR 3,000,000">IDR 1,500,000 - IDR 3,000,000</option>
-                                <option value="> IDR 3,000,000">IDR 3,000,000+</option>
-                                <option value="Not Sure / N/A">Not sure yet / N/A</option>
-                            </select>
-                        </div>
-
                         <!-- Pesan -->
                         <div>
                             <label class="form-label">Message</label>
@@ -1854,11 +1843,11 @@
 
         // ── CHAT ANIMATION ──
         const chatData = [
-            { from: 'them', text: "Hi! I saw your portfolio — impressive work! 👋" },
+            { from: 'them', text: "Hi! I saw your portfolio — impressive visual works! 🤩" },
             { from: 'me', text: "Thank you! Really happy to hear that 😊" },
-            { from: 'them', text: "We're looking for a web developer. Available?" },
-            { from: 'me', text: "Yes, I'm open for new opportunities!" },
-            { from: 'them', text: "Great! When can we schedule a call? 🗓️" },
+            { from: 'them', text: "We need a Multimedia Specialist for our next project. Available?" },
+            { from: 'me', text: "Absolutely! I'm open for new opportunities." },
+            { from: 'them', text: "Great! Let's schedule a call this week. 🗓️" },
         ]
 
         function makeBubble(msg) {
@@ -1923,7 +1912,6 @@
             const emailEl = document.getElementById('inp-email');
             const msgEl   = document.getElementById('inp-msg');
             const typeEl  = document.getElementById('inp-type');
-            const budgetEl= document.getElementById('inp-budget');
             
             let ok = true;
 
@@ -1944,17 +1932,14 @@
             btn.disabled = true; 
             btn.textContent = 'Sending...';
 
-            // Siapkan data untuk dikirim ke Web3Forms
-            // Siapkan data untuk dikirim ke Web3Forms
             const formData = new FormData();
             
-            // Access Key Web3Forms Anda:
-            formData.append("access_key", "42afe5e8-ba1f-4902-9f85-5b92279b5094");
+            // Access Key Web3Forms
+            formData.append("access_key", "42afe5e8-ba1f-4902-9f85-5b92279b5094"); 
             
             formData.append("Name", nameEl.value);
             formData.append("Email", emailEl.value);
             formData.append("Inquiry Type", typeEl.value);
-            formData.append("Budget Estimate", budgetEl.value);
             formData.append("Message", msgEl.value);
 
             // Kirim via API Fetch
@@ -1985,9 +1970,7 @@
             ['inp-name', 'inp-email', 'inp-msg'].forEach(id => {
                 const el = document.getElementById(id); el.value = ''; el.classList.remove('error');
             });
-            // Reset dropdown ke default
             document.getElementById('inp-type').selectedIndex = 0;
-            document.getElementById('inp-budget').selectedIndex = 0;
             
             ['err-name', 'err-email', 'err-msg'].forEach(id => document.getElementById(id).style.display = 'none');
             
