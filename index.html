@@ -977,12 +977,19 @@
                 background: #ffffff;
             }
 
-        .chat-messages {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            min-height: 260px;
+        .chat-messages { 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 14px; 
+            height: 280px; /* Kunci tingginya agar kotak tidak berubah bentuk */
+            overflow-y: auto; /* Aktifkan mode scroll di dalam kotak */
+            scroll-behavior: smooth; /* Bikin pergerakan scroll-nya mulus */
+        }
+        
+        /* Opsional: Sembunyikan garis scrollbar-nya agar UI tetap bersih/elegan */
+        .chat-messages::-webkit-scrollbar {
+            display: none;
         }
 
         .bubble-wrap {
